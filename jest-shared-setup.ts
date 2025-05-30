@@ -1,7 +1,13 @@
-// Mock AsyncStorage
-jest.mock('@react-native-async-storage/async-storage', () =>
-  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
-);
+// Mock react-native-mmkv
+jest.mock('react-native-mmkv', () => {
+  return {
+    MMKV: jest.fn().mockImplementation(() => ({
+      getString: jest.fn(),
+      set: jest.fn(),
+      delete: jest.fn()
+    }))
+  };
+});
 
 // Mock react-native modules that cause issues with Flow types
 jest.mock('react-native', () => {

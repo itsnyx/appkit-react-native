@@ -1,18 +1,20 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { MMKV } from 'react-native-mmkv';
+export const storage = new MMKV();
+
 import { AppKitFrameConstants } from './AppKitFrameConstants';
 
 export const AppKitFrameStorage = {
   set(key: string, value: string) {
-    AsyncStorage.setItem(`${AppKitFrameConstants.STORAGE_KEY}${key}`, JSON.stringify(value));
+    storage.set(`${AppKitFrameConstants.STORAGE_KEY}${key}`, JSON.stringify(value));
   },
 
   async get(key: string) {
-    const item = await AsyncStorage.getItem(`${AppKitFrameConstants.STORAGE_KEY}${key}`);
+    const item = storage.getString(`${AppKitFrameConstants.STORAGE_KEY}${key}`);
 
     return item ? JSON.parse(item) : undefined;
   },
 
   delete(key: string) {
-    AsyncStorage.removeItem(`${AppKitFrameConstants.STORAGE_KEY}${key}`);
+    storage.delete(`${AppKitFrameConstants.STORAGE_KEY}${key}`);
   }
 };

@@ -49,7 +49,7 @@ mockUseTheme('../src/hooks/useTheme');
 
 The shared setup includes mocks for:
 
-- `@react-native-async-storage/async-storage`
+- `react-native-mmkv`
 - React Native components and APIs (StyleSheet, Dimensions, Platform, etc.)
 - `react-native-svg` components
 - Helper functions for mocking package-specific modules

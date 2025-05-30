@@ -8,8 +8,9 @@ import {
   type SIWECreateMessageArgs
 } from '@reown/appkit-siwe-react-native';
 import { chains } from './WagmiUtils';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { MMKV } from 'react-native-mmkv';
+ const storage = new MMKV();
 const LOGGED_IN_KEY = '@appkit/logged_in';
 const SESSION_KEY = '@appkit/session';
 
@@ -42,13 +43,13 @@ export const siweConfig = createSIWEConfig({
 
     return nonce;
   },
-  getSession: async () => {
+  getSession:  () => {
     // The backend session should store the associated address and chainId
     // and return it via the `getSession` method.
 
-    const logged = await AsyncStorage.getItem(LOGGED_IN_KEY);
+    const logged =  storage.getString(LOGGED_IN_KEY);
     if (logged === 'true') {
-      const session = await AsyncStorage.getItem(SESSION_KEY);
+      const session =  storage.getString(SESSION_KEY);
 
       return session ? JSON.parse(session) : null;
     }
@@ -56,7 +57,7 @@ export const siweConfig = createSIWEConfig({
     return null;
   },
 
-  verifyMessage: async ({ message, signature, cacao }: SIWEVerifyMessageArgs): Promise<boolean> => {
+  verifyMessage:  ({ message, signature, cacao }: SIWEVerifyMessageArgs): boolean => {
     // This function ensures the message is valid,
     // has not been tampered with, and has been appropriately
     // signed by the wallet address.
@@ -65,19 +66,19 @@ export const siweConfig = createSIWEConfig({
     // api.signIn({ message, signature, cacao });
 
     // Just a mock. You should save a token or whatever your backend needs
-    await AsyncStorage.setItem(LOGGED_IN_KEY, 'true');
+     storage.set(LOGGED_IN_KEY, 'true');
 
     // MOCKED LOGIC - DON'T COPY THIS
     const address = message.split('your Ethereum account:\n')[1].split('\n')[0];
     const chainId = message.split('Chain ID: ')[1].split('\n')[0];
 
-    await AsyncStorage.setItem(SESSION_KEY, JSON.stringify({ address, chainId }));
+    storage.set(SESSION_KEY, JSON.stringify({ address, chainId }));
 
     return true;
   },
   signOut: async (): Promise<boolean> => {
     // The users session must be destroyed when calling `signOut`.
-    await AsyncStorage.removeItem(LOGGED_IN_KEY);
+    storage.delete(LOGGED_IN_KEY);
 
     return true;
   }

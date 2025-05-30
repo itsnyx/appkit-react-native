@@ -10298,7 +10298,6 @@ __metadata:
     "@changesets/changelog-github": "npm:0.5.0"
     "@changesets/cli": "npm:2.27.7"
     "@coinbase/wallet-mobile-sdk": "npm:1.1.2"
-    "@react-native-async-storage/async-storage": "npm:2.1.2"
     "@react-native/babel-preset": "npm:0.76.7"
     "@react-native/eslint-config": "npm:0.76.7"
     "@react-native/metro-config": "npm:0.76.7"
@@ -10321,6 +10320,7 @@ __metadata:
     react: "npm:18.3.1"
     react-native: "npm:0.76.7"
     react-native-builder-bob: "npm:0.23.2"
+    react-native-mmkv: "npm:2.12.2"
     react-native-modal: "npm:14.0.0-rc.0"
     react-native-svg: "npm:15.8.0"
     react-native-webview: "npm:13.12.5"
@@ -20508,7 +20508,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-mmkv@npm:^2.11.0":
+"react-native-mmkv@npm:2.12.2, react-native-mmkv@npm:^2.11.0":
   version: 2.12.2
   resolution: "react-native-mmkv@npm:2.12.2"
   peerDependencies:

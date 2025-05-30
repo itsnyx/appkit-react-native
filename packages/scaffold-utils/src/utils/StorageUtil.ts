@@ -1,19 +1,20 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { MMKV } from 'react-native-mmkv';
+const storage = new MMKV();
 import { StorageUtil as CoreStorageUtil } from '@reown/appkit-core-react-native';
 
 export const StorageUtil = {
   async getItem<T>(key: string): Promise<T> {
-    const item = await AsyncStorage.getItem(key);
+    const item = storage.getString(key);
 
     return item ? JSON.parse(item) : undefined;
   },
 
   async setItem<T>(key: string, value: T) {
-    await AsyncStorage.setItem(key, JSON.stringify(value));
+    storage.set(key, JSON.stringify(value));
   },
 
   async removeItem(key: string) {
-    await AsyncStorage.removeItem(key);
+    storage.delete(key);
   },
 
   async getConnectedConnector() {

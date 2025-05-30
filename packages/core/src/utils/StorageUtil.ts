@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { MMKV } from 'react-native-mmkv';
 import type { WcWallet } from './TypeUtil';
 import type { SocialProvider, ConnectorType } from '@reown/appkit-common-react-native';
 
@@ -11,10 +12,11 @@ const CONNECTED_CONNECTOR = '@w3m/connected_connector';
 const CONNECTED_SOCIAL = '@appkit/connected_social';
 
 // -- Utility -----------------------------------------------------------------
+const storage = new MMKV();
 export const StorageUtil = {
   setWalletConnectDeepLink({ href, name }: { href: string; name: string }) {
     try {
-      AsyncStorage.setItem(WC_DEEPLINK, JSON.stringify({ href, name }));
+      storage.set(WC_DEEPLINK, JSON.stringify({ href, name }));
     } catch {
       console.info('Unable to set WalletConnect deep link');
     }
@@ -22,7 +24,7 @@ export const StorageUtil = {
 
   async getWalletConnectDeepLink() {
     try {
-      const deepLink = await AsyncStorage.getItem(WC_DEEPLINK);
+      const deepLink = storage.getString(WC_DEEPLINK);
       if (deepLink) {
         return JSON.parse(deepLink);
       }
@@ -35,7 +37,7 @@ export const StorageUtil = {
 
   async removeWalletConnectDeepLink() {
     try {
-      await AsyncStorage.removeItem(WC_DEEPLINK);
+      storage.delete(WC_DEEPLINK);
     } catch {
       console.info('Unable to delete WalletConnect deep link');
     }
@@ -54,7 +56,7 @@ export const StorageUtil = {
       if (recentWallets.length > 2) {
         recentWallets.pop();
       }
-      AsyncStorage.setItem(RECENT_WALLET, JSON.stringify(recentWallets));
+      storage.set(RECENT_WALLET, JSON.stringify(recentWallets));
 
       return recentWallets;
     } catch {
@@ -66,7 +68,7 @@ export const StorageUtil = {
 
   async setRecentWallets(wallets: WcWallet[]) {
     try {
-      await AsyncStorage.setItem(RECENT_WALLET, JSON.stringify(wallets));
+      storage.set(RECENT_WALLET, JSON.stringify(wallets));
     } catch {
       console.info('Unable to set recent wallets');
     }
@@ -74,7 +76,7 @@ export const StorageUtil = {
 
   async getRecentWallets(): Promise<WcWallet[]> {
     try {
-      const recent = await AsyncStorage.getItem(RECENT_WALLET);
+      const recent = storage.getString(RECENT_WALLET);
 
       return recent ? JSON.parse(recent) : [];
     } catch {
@@ -86,7 +88,7 @@ export const StorageUtil = {
 
   async setConnectedConnector(connectorType: ConnectorType) {
     try {
-      await AsyncStorage.setItem(CONNECTED_CONNECTOR, JSON.stringify(connectorType));
+      storage.set(CONNECTED_CONNECTOR, JSON.stringify(connectorType));
     } catch {
       console.info('Unable to set Connected Connector');
     }
@@ -94,7 +96,7 @@ export const StorageUtil = {
 
   async getConnectedConnector(): Promise<ConnectorType | undefined> {
     try {
-      const connector = (await AsyncStorage.getItem(CONNECTED_CONNECTOR)) as ConnectorType;
+      const connector = storage.getString(CONNECTED_CONNECTOR) as ConnectorType;
 
       return connector ? JSON.parse(connector) : undefined;
     } catch {
@@ -106,7 +108,7 @@ export const StorageUtil = {
 
   async removeConnectedConnector() {
     try {
-      await AsyncStorage.removeItem(CONNECTED_CONNECTOR);
+      storage.delete(CONNECTED_CONNECTOR);
     } catch {
       console.info('Unable to remove Connected Connector');
     }
@@ -114,7 +116,7 @@ export const StorageUtil = {
 
   async setConnectedWalletImageUrl(url: string) {
     try {
-      await AsyncStorage.setItem(CONNECTED_WALLET_IMAGE_URL, url);
+      storage.set(CONNECTED_WALLET_IMAGE_URL, url);
     } catch {
       console.info('Unable to set Connected Wallet Image URL');
     }
@@ -122,7 +124,7 @@ export const StorageUtil = {
 
   async getConnectedWalletImageUrl() {
     try {
-      return await AsyncStorage.getItem(CONNECTED_WALLET_IMAGE_URL);
+      return storage.getString(CONNECTED_WALLET_IMAGE_URL);
     } catch {
       console.info('Unable to get Connected Wallet Image URL');
     }
@@ -132,7 +134,7 @@ export const StorageUtil = {
 
   async removeConnectedWalletImageUrl() {
     try {
-      await AsyncStorage.removeItem(CONNECTED_WALLET_IMAGE_URL);
+      storage.delete(CONNECTED_WALLET_IMAGE_URL);
     } catch {
       console.info('Unable to remove Connected Wallet Image URL');
     }
@@ -140,7 +142,7 @@ export const StorageUtil = {
 
   async setConnectedSocialProvider(provider: SocialProvider) {
     try {
-      await AsyncStorage.setItem(CONNECTED_SOCIAL, JSON.stringify(provider));
+      storage.set(CONNECTED_SOCIAL, JSON.stringify(provider));
     } catch {
       console.info('Unable to set Connected Social Provider');
     }
@@ -148,7 +150,7 @@ export const StorageUtil = {
 
   async getConnectedSocialProvider() {
     try {
-      const provider = (await AsyncStorage.getItem(CONNECTED_SOCIAL)) as SocialProvider;
+      const provider = storage.getString(CONNECTED_SOCIAL) as SocialProvider;
 
       return provider ? JSON.parse(provider) : undefined;
     } catch {
@@ -160,7 +162,7 @@ export const StorageUtil = {
 
   async removeConnectedSocialProvider() {
     try {
-      await AsyncStorage.removeItem(CONNECTED_SOCIAL);
+      storage.delete(CONNECTED_SOCIAL);
     } catch {
       console.info('Unable to remove Connected Social Provider');
     }
