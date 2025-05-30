@@ -45,13 +45,13 @@
     "@walletconnect/ethereum-provider": "2.21.0"
   },
   "peerDependencies": {
-    "react-native-mmkv": "2.12.2",
     "@react-native-community/netinfo": "*",
     "@walletconnect/react-native-compat": ">=2.13.1",
     "ethers": ">=6.0.0",
     "react": ">=17",
     "react-native": ">=0.68.5",
-    "react-native-get-random-values": "*"
+    "react-native-get-random-values": "*",
+    "react-native-mmkv": "2.12.2"
   },
   "devDependencies": {
     "ethers": "6.10.0"

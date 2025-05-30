@@ -97,7 +97,6 @@ __metadata:
     "@babel/core": "npm:^7.24.0"
     "@expo/metro-runtime": "npm:~4.0.1"
     "@playwright/test": "npm:^1.49.1"
-    "@react-native-async-storage/async-storage": "npm:2.1.2"
     "@react-native-community/netinfo": "npm:11.4.1"
     "@reown/appkit-auth-wagmi-react-native": "npm:1.2.3"
     "@reown/appkit-wagmi-react-native": "npm:1.2.3"
@@ -119,6 +118,7 @@ __metadata:
     react-dom: "npm:18.3.1"
     react-native: "npm:0.76.7"
     react-native-get-random-values: "npm:~1.11.0"
+    react-native-mmkv: "npm:2.12.2"
     react-native-modal: "npm:14.0.0-rc.0"
     react-native-svg: "npm:15.12.0"
     react-native-toast-message: "npm:2.2.1"
@@ -6514,17 +6514,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-async-storage/async-storage@npm:2.1.2":
-  version: 2.1.2
-  resolution: "@react-native-async-storage/async-storage@npm:2.1.2"
-  dependencies:
-    merge-options: "npm:^3.0.4"
-  peerDependencies:
-    react-native: ^0.0.0-0 || >=0.65 <1.0
-  checksum: 8f3d6ff1b32ef8705c5c8be8248988cfbfd571c0e8142b8aef15429f13ddc9a018792b4be837215f6592c76b9cd99a931d4f0ab4182eebd8bddede458d484053
-  languageName: node
-  linkType: hard
-
 "@react-native-community/cli-clean@npm:12.1.1":
   version: 12.1.1
   resolution: "@react-native-community/cli-clean@npm:12.1.1"
@@ -7244,10 +7233,10 @@ __metadata:
     "@reown/appkit-common-react-native": "npm:1.2.3"
     valtio: "npm:1.11.2"
   peerDependencies:
-    "@react-native-async-storage/async-storage": ">=1.17.0"
     "@walletconnect/react-native-compat": ">=2.13.1"
     react: ">=17"
     react-native: ">=0.68.5"
+    react-native-mmkv: 2.12.2
   languageName: unknown
   linkType: soft
 
@@ -7262,13 +7251,13 @@ __metadata:
     "@walletconnect/ethereum-provider": "npm:2.21.0"
     ethers: "npm:6.10.0"
   peerDependencies:
-    "@react-native-async-storage/async-storage": ">=1.17.0"
     "@react-native-community/netinfo": "*"
     "@walletconnect/react-native-compat": ">=2.13.1"
     ethers: ">=6.0.0"
     react: ">=17"
     react-native: ">=0.68.5"
     react-native-get-random-values: "*"
+    react-native-mmkv: 2.12.2
   languageName: unknown
   linkType: soft
 
@@ -7283,13 +7272,13 @@ __metadata:
     "@walletconnect/ethereum-provider": "npm:2.21.0"
     ethers: "npm:5.7.2"
   peerDependencies:
-    "@react-native-async-storage/async-storage": ">=1.17.0"
     "@react-native-community/netinfo": "*"
     "@walletconnect/react-native-compat": ">=2.13.1"
     ethers: ">=5.7.2 <6.0.0"
     react: ">=17"
     react-native: ">=0.68.5"
     react-native-get-random-values: "*"
+    react-native-mmkv: 2.12.2
   languageName: unknown
   linkType: soft
 
@@ -7406,12 +7395,12 @@ __metadata:
     "@reown/appkit-scaffold-utils-react-native": "npm:1.2.3"
     "@reown/appkit-siwe-react-native": "npm:1.2.3"
   peerDependencies:
-    "@react-native-async-storage/async-storage": ">=1.17.0"
     "@react-native-community/netinfo": "*"
     "@walletconnect/react-native-compat": ">=2.13.1"
     react: ">=17"
     react-native: ">=0.68.5"
     react-native-get-random-values: "*"
+    react-native-mmkv: 2.12.2
     viem: ">=2.21.4"
     wagmi: ">=2.12.10"
   languageName: unknown
@@ -7425,7 +7414,7 @@ __metadata:
     "@reown/appkit-ui-react-native": "npm:1.2.3"
     zod: "npm:3.22.4"
   peerDependencies:
-    "@react-native-async-storage/async-storage": ">=1.17.0"
+    react-native-mmkv: 2.12.2
     react-native-webview: ">=11"
   languageName: unknown
   linkType: soft
@@ -16042,13 +16031,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-plain-obj@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "is-plain-obj@npm:2.1.0"
-  checksum: e5c9814cdaa627a9ad0a0964ded0e0491bfd9ace405c49a5d63c88b30a162f1512c069d5b80997893c4d0181eadc3fed02b4ab4b81059aba5620bfcdfdeb9c53
-  languageName: node
-  linkType: hard
-
 "is-plain-object@npm:5.0.0":
   version: 5.0.0
   resolution: "is-plain-object@npm:5.0.0"
@@ -17809,15 +17791,6 @@ __metadata:
   version: 1.0.3
   resolution: "merge-descriptors@npm:1.0.3"
   checksum: 866b7094afd9293b5ea5dcd82d71f80e51514bed33b4c4e9f516795dc366612a4cbb4dc94356e943a8a6914889a914530badff27f397191b9b75cda20b6bae93
-  languageName: node
-  linkType: hard
-
-"merge-options@npm:^3.0.4":
-  version: 3.0.4
-  resolution: "merge-options@npm:3.0.4"
-  dependencies:
-    is-plain-obj: "npm:^2.1.0"
-  checksum: 02b5891ceef09b0b497b5a0154c37a71784e68ed71b14748f6fd4258ffd3fe4ecd5cb0fd6f7cae3954fd11e7686c5cb64486daffa63c2793bbe8b614b61c7055
   languageName: node
   linkType: hard
 
